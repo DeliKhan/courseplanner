@@ -19,7 +19,7 @@ export default function Home() {
             </div>
           </div>
           <div>
-            <label htmlFor="excluded" className="block text-sm font-medium leading-6 text-gray-900">Exclude These Courses</label>
+            <label htmlFor="Exclude" className="block text-sm font-medium leading-6 text-gray-900">Exclude These Courses</label>
             <div className="mt-3">
               <Course cour={updateCourse()}/>
             </div>

@@ -9,7 +9,7 @@ export async function updateCourse() {
     });
     let $ = cheerio.load(axiosResponse.data);
     //This gets the number of pages
-    const ariaLabel = (await [...$("a")].filter(link => `${link.attribs["aria-label"]}`.includes("Page")).map(page => `${page.attribs["aria-label"]}`)).pop()?.split(" ")[1];
+    const ariaLabel = [...$("a")].filter(link => `${link.attribs["aria-label"]}`.includes("Page")).map(page => `${page.attribs["aria-label"]}`).pop()?.split(" ")[1];
     //split can return undefined, so we need to check for that, if its undefined, we set num to 0
     const num = ariaLabel ? parseInt(ariaLabel) : 0;
     //get each page link
