@@ -1,3 +1,5 @@
+
+
 export async function updateCourse() {
     const cheerio = require("cheerio");
     const axios = require("axios");
@@ -18,7 +20,7 @@ export async function updateCourse() {
             url: "https://academiccalendars.romcmaster.ca/content.php?catoid=53&catoid=53&navoid=10775&filter%5Bitem_type%5D=3&filter%5Bonly_active%5D=1&filter%5B3%5D=1&filter%5Bcpage%5D=" + i + "#acalog_template_course_filter"
         });
         $ = cheerio.load(pageResponse.data);
-        courses.push(...(await ([...$("a")].filter(link => `${link.attribs.href}`.startsWith("preview_course_nopop.php") && `${link.attribs.onclick}`.startsWith("showCourse")).map(page => {let title = page.attribs.title ? `${page.attribs.title}` : `${page.text}`; return title.includes("opens a new window") ? title.replace("opens a new window", "").trim() : title.trim();})))); //that last conditional checks if page.attribs.title is undefined and if so, get the innerHTML instead
+        courses.push(...( ([...$("a")].filter(link => `${link.attribs.href}`.startsWith("preview_course_nopop.php") && `${link.attribs.onclick}`.startsWith("showCourse")).map(page => {let title = page.attribs.title ? `${page.attribs.title}` : `${page.text}`; return title.includes("opens a new window") ? title.replace("opens a new window", "").trim() : title.trim();})))); //that last conditional checks if page.attribs.title is undefined and if so, get the innerHTML instead
     }
     return courses;
 }
