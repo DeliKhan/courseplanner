@@ -21,8 +21,9 @@ function Course({cour,}: {cour : Promise<string[]>;}) {
     useEffect(() => {
         //Return 40 courses that match the user's input
         const lookup = (input: string) => {
-            input = input.toUpperCase();
-            return courses.filter(course => course.toUpperCase().includes(input)).slice(0, 40);
+            return courses.filter(course => (new RegExp('(' + input.split(' ').join('|') + ')', 'gi')).test(course)).slice(0, 40);
+            //input = input.toUpperCase();
+            //return courses.filter(course => course.toUpperCase().includes(input)).slice(0, 40);
         }
         setoptions1(lookup(inputValue1));
         setoptions2(lookup(inputValue2));
