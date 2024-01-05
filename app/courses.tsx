@@ -1,6 +1,20 @@
 
 
 export async function updateCourse() {
+    const fs = require("fs");
+    let cour : string[] = [];
+    return new Promise<string[]>((resolve, reject) => {
+        fs.readFile("data/courses.json", { encoding : 'utf-8'}, function(err, data){
+            if (!err) {
+                cour = JSON.parse(data).course;
+                resolve(cour);
+            } else {
+                reject(err);
+            }
+        });
+    });
+    /* This is the old code that scrapes directly from the website
+    //fs.readFileSync("data/courses.json", 'utf-8').then(data => console.log(data)).catch(err => console.error(err));
     const cheerio = require("cheerio");
     const axios = require("axios");
     const axiosResponse = await axios.request({
@@ -23,4 +37,6 @@ export async function updateCourse() {
         courses.push(...( ([...$("a")].filter(link => `${link.attribs.href}`.startsWith("preview_course_nopop.php") && `${link.attribs.onclick}`.startsWith("showCourse")).map(page => {let title = page.attribs.title ? `${page.attribs.title}` : `${page.text}`; return title.includes("opens a new window") ? title.replace("opens a new window", "").trim() : title.trim();})))); //that last conditional checks if page.attribs.title is undefined and if so, get the innerHTML instead
     }
     return courses;
+    
+    */
 }
