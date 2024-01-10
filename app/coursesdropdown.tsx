@@ -38,6 +38,8 @@ function Course({cour,}: {cour : Promise<string[]>;}) {
         //The point of onMouseDown is to prevent the input field from losing focus when the user clicks on the dropdown
         //onFocus={e => e.target.nextElementSibling?.classList.remove("hidden")} onBlur={e => e.target.nextElementSibling?.classList.add("hidden")}
         <>
+            <input type="hidden" name="selected1" value={JSON.stringify(selected1)} />
+            <input type="hidden" name="selected2" value={JSON.stringify(selected2)} />
             <div>
                 <label htmlFor="Exclude" className="block text-sm font-medium leading-6 text-gray-900">Exclude These Courses</label>
                 <div className="mt-3">
