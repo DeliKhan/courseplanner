@@ -1,5 +1,4 @@
 
-
 export async function updateCourse() {
     const fs = require("fs");
     let cour : string[] = [];
@@ -7,6 +6,7 @@ export async function updateCourse() {
         fs.readFile("data/courses.json", { encoding : 'utf-8'}, function(err, data){
             if (!err) {
                 cour = JSON.parse(data).course;
+                console.log(cour);
                 resolve(cour);
             } else {
                 reject(err);

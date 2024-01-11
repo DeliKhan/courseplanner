@@ -24,9 +24,5 @@ export async function Program() {
     }
     list.sort((a, b) => a.programName.localeCompare(b.programName));
     programs.sort();
-    return (
-        <select id="programname" name="programname" className="flex-1 w-full justify-start py-2 pr-10 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            {list.map(program => <option value={program.hrefLink}>{program.programName}</option>)}
-        </select>
-    )
+    return list;
 }
