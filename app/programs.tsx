@@ -7,7 +7,24 @@
                           return htmlDocument.documentElement.querySelectorAll("a")
                         }
                       );*/
+interface Program {
+    hrefLink: string;
+    programName: string;
+}
 export async function Program() {
+    const fs = require("fs");
+    let list : Program[] = [];
+    return new Promise<Program[]>((resolve, reject) => {
+        fs.readFile("data/courses.json", { encoding : 'utf-8'}, function(err, data){
+            if (!err) {
+                list = JSON.parse(data).programs;
+                resolve(list);
+            } else {
+                reject(err);
+            }
+        });
+    });
+    /*
     const cheerio = require("cheerio");
     const axios = require("axios");
     const axiosResponse = await axios.request({
@@ -23,6 +40,6 @@ export async function Program() {
         list.push({'programName': programs[i].trim(), 'hrefLink': programList[i].trim()});
     }
     list.sort((a, b) => a.programName.localeCompare(b.programName));
-    programs.sort();
     return list;
+    */
 }

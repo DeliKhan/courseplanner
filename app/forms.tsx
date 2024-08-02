@@ -38,7 +38,7 @@ export default function Forms({cour,list}: {cour : Promise<string[]>;list : Prom
                 <label htmlFor="programname" className="block text-sm font-medium leading-6 text-gray-900">Program Name</label>
                 <div className="mt-3">
                     <select id="programname" name="programname" className="flex-1 w-full justify-start py-2 pr-10 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        {programs.map(program => <option value={program.hrefLink}>{program.programName}</option>)}
+                        {programs.map(program => <option value={program.programName}>{program.programName}</option>)}
                     </select>
                 </div>
             </div>

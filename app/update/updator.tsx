@@ -5,11 +5,30 @@ export async function UpdateJson() {
 
     let database = require('../../data/courses.json');
 
+    console.log("Step 0: Getting all program names");
+    interface Program {
+        hrefLink: string;
+        programName: string;
+    }
+    const axiosResponse0 = await axios.request({
+        method: "GET",
+        url: "https://academiccalendars.romcmaster.ca/content.php?catoid=53&navoid=10776"
+    });
+    let $ = cheerio.load(axiosResponse0.data);
+    const links = $("a");
+    const programList = (await [...$(links)].filter(link => `${link.attribs.href}`.includes("preview")).map(program => "https://academiccalendars.romcmaster.ca/" + program.attribs.href));                  
+    const programs = (await [...$(links)].filter(link => `${link.attribs.href}`.includes("preview")).map(child => (child.children).map(prog => prog.data))).flat();
+    let list : Program[] = [];
+    for (let i = 0; i < programs.length; i++) {
+        list.push({'programName': programs[i].trim(), 'hrefLink': programList[i].trim()});
+    }
+    list.sort((a, b) => a.programName.localeCompare(b.programName));
+
     const axiosResponse = await axios.request({
         method: "GET",
         url: "https://academiccalendars.romcmaster.ca/content.php?catoid=53&navoid=10775"
     });
-    let $ = cheerio.load(axiosResponse.data);
+    $ = cheerio.load(axiosResponse.data);
     //This gets the number of pages
     const ariaLabel = [...$("a")].filter(link => `${link.attribs["aria-label"]}`.includes("Page")).map(page => `${page.attribs["aria-label"]}`).pop()?.split(" ")[1];
     //split can return undefined, so we need to check for that, if its undefined, we set num to 0
@@ -71,6 +90,7 @@ export async function UpdateJson() {
     
     console.log("Step 3: Writing to the database...");
     
+    database.programs = list;
     database.course = courses;
     database.courseDescription = courseDescription;
     database.courseLinks = courselinks;

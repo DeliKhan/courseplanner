@@ -2,9 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { lobster, shrik } from './fonts'
 import { Program } from './programs'
-import Course from './coursesdropdown';
 import { updateCourse } from './courses';
-import { SubmitButton } from './submitbutton';
 import Forms from './forms';
 
 //<h1 className={`${shrik.className} text-6xl subpixel-antialiased bg-gradient-to-r from-orange-400 via-amber-500 to-amber-500 inline-block text-transparent bg-clip-text text-orange-grad drop-shadow-xl`}>Course planner</h1>
